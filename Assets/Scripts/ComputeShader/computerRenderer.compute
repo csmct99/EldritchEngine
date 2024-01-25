@@ -1,0 +1,12 @@
+#pragma kernel CSMain
+
+RWTexture2D<float4> Result;
+StructuredBuffer<float4> InputPixels;
+int Width;
+
+[numthreads(16, 16, 1)]
+void CSMain(uint2 id : SV_DispatchThreadID)
+{
+    float4 pixel = InputPixels[id.x + id.y * Width];
+    Result[id.xy] = float4(pixel.x, pixel.y, pixel.z, 1);
+}
